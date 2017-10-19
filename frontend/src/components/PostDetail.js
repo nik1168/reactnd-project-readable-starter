@@ -20,13 +20,16 @@ class PostDetail extends React.Component{
   deletePost = (id)=>{
     this.props.deletePost(id);
   };
+  goBack = ()=>{
+    this.props.history.push('/')
+  };
   componentDidMount(){
     const {post} = this.props;
     this.props.fetchCommentsForASinglePost(post.id);
   }
 
   render(){
-    const {post,isList,comments,countComments} = this.props;
+    const {post,isList,comments,countComments,history} = this.props;
     const BUTTON_GROUP_ICON_SIZE = 16;
     return(
       <div>
@@ -55,6 +58,12 @@ class PostDetail extends React.Component{
               </LinkContainer>
               <Button bsStyle="danger" onClick={() => this.deletePost(post.id)}><DeleteIcon size={BUTTON_GROUP_ICON_SIZE}/> Delete</Button>
             </ButtonGroup>
+            {
+              history && (
+                <Button onClick={this.goBack}>Go Back</Button>
+              )
+            }
+
           </div>
         </div>
         </div>
@@ -68,7 +77,8 @@ function mapStateToProps(state,ownProps){
     post : ownProps.post,
     isList : ownProps.isList,
     votePost : ownProps.votePost,
-    deletePost : ownProps.deletePost
+    deletePost : ownProps.deletePost,
+    history : ownProps.history
   }
 }
 

@@ -53,7 +53,7 @@ class Post extends React.Component{
       <div>
         {
           selectedPost && !selectedPost.deleted && (
-            <PostDetail post={selectedPost} votePost={this.voteOnPost} deletePost={this.deletePost} countComments={countComments}/>
+            <PostDetail match={this.props.match} history={this.props.history} post={selectedPost} votePost={this.voteOnPost} deletePost={this.deletePost} countComments={countComments}/>
           )
         }
         {

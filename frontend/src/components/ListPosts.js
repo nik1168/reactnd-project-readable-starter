@@ -50,7 +50,7 @@ class ListPosts extends React.Component{
 
             {
               posts && posts.filter((value)=>!value.deleted).map((value,index)=>(
-                <PostDetail key={index} post={value} isList='true' votePost={this.voteOnPost} deletePost={this.deletePost}/>
+                <PostDetail match={this.props.match} history={this.props.history} key={index} post={value} isList='true' votePost={this.voteOnPost} deletePost={this.deletePost}/>
               ))
             }
           </div>
@@ -69,7 +69,9 @@ function mapStateToProps(state,ownProps){
   return {
     posts : state.posts.posts,
     category : ownProps.category,
-    sort : state.sort.sort
+    sort : state.sort.sort,
+    history : ownProps.history,
+    match : ownProps.match
   }
 }
 const changeSortDis = (data) => dispatch=>(dispatch(changeSort(data)));

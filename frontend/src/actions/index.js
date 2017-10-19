@@ -134,10 +134,6 @@ export const fetchCommentsForASinglePost = (id) => dispatch =>
     CommentsAPI
       .getCommentForASinglePost(id)
       .then(comments => {
-        console.log("id");
-        console.log(id);
-        console.log("REPONSE GET COMMENTS");
-        console.log(comments);
         dispatch(getCommentsForSinglePost(comments,id))
       })
   );

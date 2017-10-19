@@ -54,12 +54,12 @@ class App extends Component {
             </LinkContainer>
           </div>
           <div style={{ flex: 1, padding: '10px' }}>
-            <Route exact path="/" render={() => (
+            <Route exact path="/" render={({history,match}) => (
               <ListPosts></ListPosts>
             )} />
             {
               categories && categories.map((value,index)=>(
-                <Route exact key={index} path={'/'+value.path} render={({history}) => (
+                <Route exact key={index} path={'/'+value.path} render={({history,match}) => (
                   <ListPosts category={value.name}></ListPosts>
                 )} />
               ))
