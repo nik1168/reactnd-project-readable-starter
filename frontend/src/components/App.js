@@ -13,15 +13,11 @@ import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import AddIcon from 'react-icons/lib/md/add'
 import PropTypes from 'prop-types'
 import {
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
 
 class App extends Component {
-  static propTypes= {
-    categories : PropTypes.object.isRequired,
-    posts : PropTypes.object.isRequired,
-    fetchCategories : PropTypes.func.isRequired
-  };
 
   componentDidMount(){
     this.props.fetchCategories();
@@ -54,32 +50,36 @@ class App extends Component {
             </LinkContainer>
           </div>
           <div style={{ flex: 1, padding: '10px' }}>
-            <Route exact path="/" render={({history,match}) => (
-              <ListPosts></ListPosts>
-            )} />
-            {
-              categories && categories.map((value,index)=>(
-                <Route exact key={index} path={'/'+value.path} render={({history,match}) => (
-                  <ListPosts category={value.name}></ListPosts>
-                )} />
-              ))
-            }
-            <Route  path="/addPost" render={({history}) => (
-              <AddPost history={history}></AddPost>
-            )} />
-            <Route  path="/editPost/:id" render={({history,match}) => (
-              <EditPost history={history} match={match}></EditPost>
-            )} />
-            <Route  path="/editComment/:id" render={({history,match}) => (
-              <EditComment history={history} match={match}></EditComment>
-            )} />
-            {
-              categories && categories.map((value,index)=>(
-                <Route key={index} path={'/'+value.name+'/:id'} render={({history,match}) => (
-                  <Post history={history} match={match}></Post>
-                )} />
-              ))
-            }
+            <Switch>
+              <Route exact path="/" render={({history,match}) => (
+                <ListPosts></ListPosts>
+              )} />
+              {
+                categories && categories.map((value,index)=>(
+                  <Route exact key={index} path={'/'+value.path} render={({history,match}) => (
+                    <ListPosts category={value.name}></ListPosts>
+                  )} />
+                ))
+              }
+              <Route path="/addPost" render={({history}) => (
+                <AddPost history={history}></AddPost>
+              )} />
+              <Route path="/editPost/:id" render={({history,match}) => (
+                <EditPost history={history} match={match}></EditPost>
+              )} />
+              <Route path="/editComment/:id" render={({history,match}) => (
+                <EditComment history={history} match={match}></EditComment>
+              )} />
+              {
+                categories && categories.map((value,index)=>(
+                  <Route key={index} exact path={'/'+value.name+'/:id'} render={({history,match}) => (
+                    <Post history={history} match={match}></Post>
+                  )} />
+                ))
+              }
+              <Route component={NoMatch}/>
+            </Switch>
+
           </div>
         </div>
         <div>
@@ -95,5 +95,10 @@ function mapStateToProps(state){
     posts : state.posts.posts
   }
 }
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>No match for <code>{location.pathname}</code></h3>
+  </div>
+)
 
 export default connect(mapStateToProps,{fetchCategories})(App)

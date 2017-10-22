@@ -10,6 +10,7 @@ import LikeIcon from 'react-icons/lib/md/thumb-up'
 import DislikeIcon from 'react-icons/lib/md/thumb-down'
 import EditIcon from 'react-icons/lib/md/mode-edit'
 import DeleteIcon from 'react-icons/lib/md/delete'
+import ArrowIcon from 'react-icons/lib/md/arrow-back'
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer'
 
 class PostDetail extends React.Component{
@@ -60,7 +61,7 @@ class PostDetail extends React.Component{
             </ButtonGroup>
             {
               history && (
-                <Button onClick={this.goBack}>Go Back</Button>
+                <Button onClick={this.goBack}><ArrowIcon size={BUTTON_GROUP_ICON_SIZE}/>Go Back</Button>
               )
             }
 

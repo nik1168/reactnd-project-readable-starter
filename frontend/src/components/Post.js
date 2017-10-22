@@ -10,7 +10,7 @@ import {changeSort} from '../actions/index'
 import {fetchPost} from '../actions/index'
 import {fetchCommentsForASinglePost} from '../actions/index'
 import {deleteCommentRequest} from '../actions/index'
-import {deletePost} from '../actions/index'
+import {deletePostRequest} from '../actions/index'
 import sortBy from 'sort-by'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Button from 'react-bootstrap/lib/Button';
@@ -25,7 +25,9 @@ class Post extends React.Component{
     this.props.votePost(post,vote);
   };
   deletePost = (id)=>{
-    this.props.deletePost(id);
+    this.props.deletePostRequest(id);
+    const {selectedPost} = this.props;
+    this.props.history.push('/'+selectedPost.category);
   };
   deleteComment = (id)=>{
     this.props.deleteCommentRequest(id);
@@ -52,12 +54,12 @@ class Post extends React.Component{
     return(
       <div>
         {
-          selectedPost && !selectedPost.deleted && (
+          selectedPost && !selectedPost.deleted && Object.keys(selectedPost).length > 0 && !selectedPost.error && (
             <PostDetail match={this.props.match} history={this.props.history} post={selectedPost} votePost={this.voteOnPost} deletePost={this.deletePost} countComments={countComments}/>
           )
         }
         {
-          comments && comments.length > 0 &&(
+          selectedPost && !selectedPost.deleted && Object.keys(selectedPost).length > 0 && !selectedPost.error && comments && comments.length > 0 &&(
             <div>
               <ButtonGroup>
                 <Button bsSize="small" active={sort==='-voteScore'} onClick={()=>{this.changeSort('-voteScore')}}>voteScore</Button>
@@ -68,23 +70,33 @@ class Post extends React.Component{
 
         }
         {
-          comments&& comments.filter((value)=>(!value.deleted)).map((value,index)=>(
+          selectedPost && !selectedPost.deleted && Object.keys(selectedPost).length > 0 && !selectedPost.error && comments&& comments.filter((value)=>(!value.deleted)).map((value,index)=>(
               <CommentDetail key={index} comment={value} voteOnComment={this.voteOnComment} deleteComment={this.deleteComment}/>
           ))
         }
         <br/>
         <div>
           {
-            selectedPost && (
+            selectedPost && Object.keys(selectedPost).length > 0 && !selectedPost.deleted && !selectedPost.error && (
               <AddComment post={selectedPost} history={history}/>
             )
           }
 
         </div>
-        {comments && comments.length === 0 &&
+        {selectedPost && !selectedPost.deleted && Object.keys(selectedPost).length > 0 && !selectedPost.error && comments && comments.length === 0 &&
         <p>
           No comments found for this post
         </p>
+        }
+        {
+          selectedPost && (selectedPost.error || Object.keys(selectedPost).length === 0) && (
+            <h3>Post not found</h3>
+          )
+        }
+        {
+          !selectedPost && (
+            <h3>Post not found</h3>
+          )
         }
       </div>
     )
@@ -102,4 +114,4 @@ function mapStateToProps(state,ownProps){
   }
 }
 const changeSortDis = (data) => dispatch=>(dispatch(changeSort(data)));
-export default connect(mapStateToProps,{fetchPost,votePost,voteOnCommentRequest,fetchCommentsForASinglePost,deleteCommentRequest,deletePost,changeSortDis})(Post)
+export default connect(mapStateToProps,{fetchPost,votePost,voteOnCommentRequest,fetchCommentsForASinglePost,deleteCommentRequest,deletePostRequest,changeSortDis})(Post)

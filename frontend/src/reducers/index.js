@@ -166,7 +166,7 @@ function posts(state=[],action){
       return state;
     case DELETE_POST:
       let j=0;
-      state.posts.map((value,index)=>{
+      state.posts && state.posts.map((value,index)=>{
         if(value.id===id){
           j=index;
         }

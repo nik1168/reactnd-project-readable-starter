@@ -36,7 +36,7 @@ class ListPosts extends React.Component{
         <div>
           <div>
             {
-              posts && posts.length > 0 &&(
+              posts && posts.length > 0 && posts.filter((val)=>!val.deleted).length >0 &&(
                 <div>
                   <ButtonGroup>
                     <Button active={sort==='-voteScore'} onClick={()=>{this.changeSort('-voteScore')}}>voteScore</Button>
@@ -54,7 +54,7 @@ class ListPosts extends React.Component{
               ))
             }
           </div>
-          {posts && posts.length === 0 &&
+          {posts && (posts.length === 0 || posts.filter((val)=>!val.deleted).length === 0) &&
           <p>
             No posts found for this category
           </p>
