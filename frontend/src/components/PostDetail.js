@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {fetchCommentsForASinglePost} from '../actions/comments'
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';

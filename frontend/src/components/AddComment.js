@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import serializeForm from 'form-serialize'
-import {addCommentToPostRequest} from "../actions/comments";
+import * as comments from '../actions/comments'
 import Button from 'react-bootstrap/lib/Button';
 
 class AddComment extends React.Component{
@@ -38,5 +39,8 @@ function mapStateToProps(state,ownProps){
     history : ownProps.history
   }
 }
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(comments, dispatch)
+}
 
-export default connect(mapStateToProps,{addCommentToPostRequest})(AddComment)
+export default connect(mapStateToProps,mapDispatchToProps)(AddComment)

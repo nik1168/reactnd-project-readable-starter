@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {fetchPosts} from '../actions/posts';
-import {changeSort} from '../actions/index';
-import {votePost} from '../actions/posts';
+import { bindActionCreators } from 'redux'
 import PostDetail from './PostDetail'
-import {deletePostRequest} from "../actions/posts";
+import * as postActions from '../actions/posts'
+import * as indexActions from '../actions/index'
 import sortBy from 'sort-by'
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
@@ -74,6 +73,10 @@ function mapStateToProps(state,ownProps){
     match : ownProps.match
   }
 }
-const changeSortDis = (data) => dispatch=>(dispatch(changeSort(data)));
 
-export default connect(mapStateToProps,{fetchPosts,votePost,deletePostRequest,changeSortDis})(ListPosts)
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({...postActions,...indexActions}, dispatch)
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(ListPosts)

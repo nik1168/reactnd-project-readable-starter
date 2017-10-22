@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as postActions from '../actions/posts'
+import * as commentsActions from '../actions/comments'
+import * as indexActions from '../actions/index'
 import PostDetail from './PostDetail'
 import CommentDetail from './CommentDetail'
 import AddComment from './AddComment'
-import {votePost} from "../actions/posts";
-import {voteOnCommentRequest} from "../actions/comments"
 import {changeSort} from '../actions/index'
-import {fetchPost} from '../actions/posts'
-import {fetchCommentsForASinglePost} from '../actions/comments'
-import {deleteCommentRequest} from '../actions/comments'
-import {deletePostRequest} from '../actions/posts'
 import sortBy from 'sort-by'
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import Button from 'react-bootstrap/lib/Button';
@@ -113,5 +111,8 @@ function mapStateToProps(state,ownProps){
     sort : state.sort.sort
   }
 }
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({...postActions,...indexActions,...commentsActions}, dispatch)
+}
 const changeSortDis = (data) => dispatch=>(dispatch(changeSort(data)));
-export default connect(mapStateToProps,{fetchPost,votePost,voteOnCommentRequest,fetchCommentsForASinglePost,deleteCommentRequest,deletePostRequest,changeSortDis})(Post)
+export default connect(mapStateToProps,mapDispatchToProps)(Post)

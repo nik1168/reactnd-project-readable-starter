@@ -6,3 +6,5 @@ export const changeSort = (sort) => ({
   sort
 });
 
+export const changeSortDis = (data) => dispatch=>(dispatch(changeSort(data)));
+

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {fetchCategories} from '../actions/categories'
+import { bindActionCreators } from 'redux'
+import * as categoriesActions from '../actions/categories'
 import '../App.css';
 import ListPosts from './ListPosts'
 import AddPost from './AddPost'
@@ -95,10 +96,13 @@ function mapStateToProps(state){
     posts : state.posts.posts
   }
 }
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(categoriesActions, dispatch)
+}
 const NoMatch = ({ location }) => (
   <div>
     <h3>No match for <code>{location.pathname}</code></h3>
   </div>
-)
+);
 
-export default connect(mapStateToProps,{fetchCategories})(App)
+export default connect(mapStateToProps,mapDispatchToProps)(App)

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import serializeForm from 'form-serialize'
-import {addPostRequest} from "../actions/posts";
+import * as posts from '../actions/posts'
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
@@ -87,4 +88,7 @@ function mapStateToProps(state,ownProps){
     history : ownProps.history
   }
 }
-export default connect(mapStateToProps,{addPostRequest})(AddPost)
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(posts, dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(AddPost)
