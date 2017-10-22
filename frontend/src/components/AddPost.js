@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
-import {addPostRequest} from "../actions/index";
+import {addPostRequest} from "../actions/posts";
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';

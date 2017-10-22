@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {fetchPosts} from '../actions/index';
+import {fetchPosts} from '../actions/posts';
 import {changeSort} from '../actions/index';
-import {votePost} from '../actions/index';
+import {votePost} from '../actions/posts';
 import PostDetail from './PostDetail'
-import {deletePostRequest} from "../actions/index";
+import {deletePostRequest} from "../actions/posts";
 import sortBy from 'sort-by'
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';

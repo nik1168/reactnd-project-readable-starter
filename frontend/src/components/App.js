@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {fetchCategories} from '../actions/index'
+import {fetchCategories} from '../actions/categories'
 import '../App.css';
 import ListPosts from './ListPosts'
 import AddPost from './AddPost'

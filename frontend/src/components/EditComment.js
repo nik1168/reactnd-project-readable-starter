@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
-import {fetchComment} from '../actions/index'
-import {updateCommentRequest} from "../actions/index";
+import {fetchComment} from '../actions/comments'
+import {updateCommentRequest} from "../actions/comments";
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
